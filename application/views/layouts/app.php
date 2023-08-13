@@ -17,7 +17,9 @@
 
   <!-- Custom styles for this template-->
   <link href="<?= base_url('assets/css/sb-admin-2.min.css') ?>" rel="stylesheet">
-
+  <?php if(isset($addon_css)): ?>
+    <link href="<?= $addon_css ?>" rel="stylesheet">
+  <?php endif ?>
 </head>
 
 <body id="page-top">
@@ -175,7 +177,9 @@
   <!-- Page level custom scripts -->
   <script src="<?= base_url('assets/js/demo/chart-area-demo.js') ?>"></script>
   <script src="<?= base_url('assets/js/demo/chart-pie-demo.js') ?>"></script>
-
+  <?php if(isset($addon_js)): ?>
+    <script src="<?= $addon_js ?>"></script>
+  <?php endif ?>
 </body>
 
 </html>

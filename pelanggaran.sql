@@ -7,6 +7,20 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 SET NAMES utf8mb4;
 
+DROP TABLE IF EXISTS `tb_admin`;
+CREATE TABLE `tb_admin` (
+  `id_admin` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `nama_admin` varchar(50) NOT NULL,
+  `role_admin` enum('admin','kesiswaan') NOT NULL,
+  PRIMARY KEY (`id_admin`),
+  KEY `id_user` (`id_user`),
+  CONSTRAINT `tb_admin_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id_user`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `tb_admin` (`id_admin`, `id_user`, `nama_admin`, `role_admin`) VALUES
+(1,	10,	'admin',	'kesiswaan');
+
 DROP TABLE IF EXISTS `tb_bk`;
 CREATE TABLE `tb_bk` (
   `id_bk` int(11) NOT NULL AUTO_INCREMENT,
@@ -23,6 +37,8 @@ CREATE TABLE `tb_bk` (
   CONSTRAINT `tb_bk_ibfk_4` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO `tb_bk` (`id_bk`, `id_user`, `nama_bk`, `nip`, `alamat`, `jenis_kelamin`, `agama`, `tempat_lahir`, `tanggal_lahir`) VALUES
+(1,	11,	'Guru BK 1',	'02134433234',	'Komp. Bumi Bung Permai No.A8/15, RT.001/RW.01',	'L',	'islam',	'Mataram',	'2023-08-14');
 
 DROP TABLE IF EXISTS `tb_osis`;
 CREATE TABLE `tb_osis` (
@@ -49,7 +65,8 @@ CREATE TABLE `tb_prestasi` (
 
 INSERT INTO `tb_prestasi` (`id_prestasi`, `id_siswa`, `jenis_prestasi`, `keterangan_prestasi`, `sertifikat`) VALUES
 (1,	3,	'internasional',	NULL,	NULL),
-(2,	3,	'nasional',	NULL,	NULL);
+(2,	3,	'nasional',	'Keterangan prestasi',	'nasional-20230813063024.pdf'),
+(3,	4,	'nasional',	'Keterangan prestasi edit',	'internasional-20230813022043.pdf');
 
 DROP TABLE IF EXISTS `tb_siswa`;
 CREATE TABLE `tb_siswa` (
@@ -81,13 +98,15 @@ CREATE TABLE `tb_user` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` enum('siswa','osis','admin','guru_bk','guru') NOT NULL,
+  `role` enum('siswa','osis','admin','gurubk','walikelas') NOT NULL,
   PRIMARY KEY (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `tb_user` (`id_user`, `username`, `password`, `role`) VALUES
 (4,	'widya123',	'$2y$10$7RSsQIukaQx3W9hds9iofeLMF.EK1Wo1r13Fi8CtP34.EUNHN2nna',	'siswa'),
 (5,	'sutrisman',	'$2y$10$cRgiM/99e0IMJPLGqWccB.IMJeloJpKy4iIz4FSoCpdJ3i.HYKQQ6',	'siswa'),
-(8,	'nurhadi123',	'$2y$10$/uMvyBG9UtRIHbBpZ938Fuh5dI0kG2krIDpXElN5YfIC92ZJgKTMS',	'siswa');
+(8,	'nurhadi123',	'$2y$10$/uMvyBG9UtRIHbBpZ938Fuh5dI0kG2krIDpXElN5YfIC92ZJgKTMS',	'siswa'),
+(10,	'admin',	'$2y$10$XkZS1/09.UPdakQ1P8VkluxcqEaa3tWVIif3pcZ5UzsTRGtvjdTdO',	'admin'),
+(11,	'bk1',	'$2y$10$RwycJ/iIH2Lvcw0bSzVQGeT3Z3HBO/QrP1uanbQxSfZJkSDkBb4Ty',	'gurubk');
 
--- 2023-07-28 13:12:27
+-- 2023-08-13 06:32:24
