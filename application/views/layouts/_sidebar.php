@@ -1,103 +1,139 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<?php
+$role = $this->session->userdata('role');
+?>
+<aside id="sidebar" class="sidebar">
 
-<!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-  <div class="sidebar-brand-text mx-3">Monitoring Siswa</div>
-</a>
+  <ul class="sidebar-nav" id="sidebar-nav">
 
-<!-- Divider -->
-<hr class="sidebar-divider my-0">
+    <?php if ($role == 'admin') : ?>
+      <li class="nav-item">
+        <a class="nav-link <?= $this->uri->segment(1) === 'dashboard' ? '' : 'collapsed' ?>" href="<?= base_url('dashboard') ?>">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      <li class="nav-item">
+        <a class="nav-link <?= $this->uri->segment(1) === 'admin' || $this->uri->segment(1) === 'siswa' || $this->uri->segment(1) === 'gurubk' || $this->uri->segment(1) === 'osis' || $this->uri->segment(1) === 'prestasi' || $this->uri->segment(1) === 'walikelas' || $this->uri->segment(1) === 'namapelanggaran' ? '' : 'collapsed'  ?>" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Data</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content <?= $this->uri->segment(1) === 'admin' || $this->uri->segment(1) === 'siswa' || $this->uri->segment(1) === 'gurubk' || $this->uri->segment(1) === 'osis' || $this->uri->segment(1) === 'prestasi' || $this->uri->segment(1) === 'walikelas' || $this->uri->segment(1) === 'namapelanggaran' ? '' : 'collapsed' ?> " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="<?= base_url('admin') ?>" class="<?= $this->uri->segment(1) === 'admin' ? 'active' : '' ?>">
+              <i class="bi bi-circle"></i><span>Admin/Kesiswaan</span>
+            </a>
+          </li>
+          <li>
+            <a href="<?= base_url('siswa') ?>" class="<?= $this->uri->segment(1) === 'siswa' ? 'active' : '' ?>">
+              <i class="bi bi-circle"></i><span>Siswa</span>
+            </a>
+          </li>
+          <li>
+            <a href="<?= base_url('gurubk') ?>" class="<?= $this->uri->segment(1) === 'gurubk' ? 'active' : '' ?>">
+              <i class="bi bi-circle"></i><span>Guru BK</span>
+            </a>
+          </li>
+          <li>
+            <a href="<?= base_url('osis') ?>" class="<?= $this->uri->segment(1) === 'osis' ? 'active' : '' ?>">
+              <i class="bi bi-circle"></i><span>OSIS</span>
+            </a>
+          </li>
+          <li>
+            <a href="<?= base_url('walikelas') ?>" class="<?= $this->uri->segment(1) === 'walikelas' ? 'active' : '' ?>">
+              <i class="bi bi-circle"></i><span>Walikelas</span>
+            </a>
+          </li>
+          <li>
+            <a href="<?= base_url('prestasi') ?>" class="<?= $this->uri->segment(1) === 'prestasi' ? 'active' : '' ?>">
+              <i class="bi bi-circle"></i><span>Prestasi</span>
+            </a>
+          </li>
+          <li>
+            <a href="<?= base_url('namapelanggaran') ?>" class="<?= $this->uri->segment(1) === 'namapelanggaran' ? 'active' : '' ?>">
+              <i class="bi bi-circle"></i><span>Nama Pelanggaran</span>
+            </a>
+          </li>
+          <li>
+            <a href="<?= base_url('pelanggaran') ?>" class="<?= $this->uri->segment(1) === 'pelanggaran' ? 'active' : '' ?>">
+              <i class="bi bi-circle"></i><span>Pelanggaran</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+    <?php endif ?>
+    <?php if ($role == 'walikelas') : ?>
+      <li class="nav-item">
+        <a class="nav-link <?= $this->uri->segment(1) === 'dashboard' ? '' : 'collapsed' ?>" href="<?= base_url('dashboard/walikelas') ?>">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      <li class="nav-item">
+        <a class="nav-link <?= $this->uri->segment(1) === 'prestasi_walikelas' ? '' : 'collapsed' ?>" href="<?= base_url('prestasi_walikelas') ?>">
+          <i class="bi bi-trophy"></i>
+          <span>Prestasi Siswa</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      <li class="nav-item">
+        <a class="nav-link <?= $this->uri->segment(1) === 'pelanggaran' ? '' : 'collapsed' ?>" href="<?= base_url('pelanggaran') ?>">
+          <i class="bi bi-book"></i>
+          <span>Pelanggaran</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+    <?php endif ?>
+    <?php if ($role == 'siswa') : ?>
+      <li class="nav-item">
+        <a class="nav-link <?= $this->uri->segment(1) === 'dashboard' ? '' : 'collapsed' ?>" href="<?= base_url('dashboard/siswa') ?>">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      <li class="nav-item">
+        <a class="nav-link <?= $this->uri->segment(1) === 'prestasi_siswa' ? '' : 'collapsed' ?>" href="<?= base_url('prestasi_siswa') ?>">
+          <i class="bi bi-trophy"></i>
+          <span>Prestasi Saya</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      <li class="nav-item">
+        <a class="nav-link <?= $this->uri->segment(1) === 'pelanggaran' ? '' : 'collapsed' ?>" href="<?= base_url('pelanggaran') ?>">
+          <i class="bi bi-book"></i>
+          <span>Pelanggaran</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+    <?php endif ?>
+    <?php if ($role == 'osis') : ?>
+      <li class="nav-item">
+        <a class="nav-link <?= $this->uri->segment(1) === 'dashboard' ? '' : 'collapsed' ?>" href="<?= base_url('dashboard/osis') ?>">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <?= $this->uri->segment(1) === 'pelanggaran' ? '' : 'collapsed' ?>" href="<?= base_url('pelanggaran') ?>">
+          <i class="bi bi-book"></i>
+          <span>Pelanggaran</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+    <?php endif ?>
+    <?php if ($role == 'gurubk') : ?>
+      <li class="nav-item">
+        <a class="nav-link <?= $this->uri->segment(1) === 'dashboard' ? '' : 'collapsed' ?>" href="<?= base_url('dashboard/gurubk') ?>">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      <li class="nav-item">
+        <a class="nav-link <?= $this->uri->segment(1) === 'pelanggaran' ? '' : 'collapsed' ?>" href="<?= base_url('pelanggaran') ?>">
+          <i class="bi bi-book"></i>
+          <span>Pelanggaran</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      <li class="nav-item">
+        <a class="nav-link <?= $this->uri->segment(1) === 'namapelanggaran' ? '' : 'collapsed' ?>" href="<?= base_url('namapelanggaran') ?>">
+          <i class="bi bi-book"></i>
+          <span>Nama Pelanggaran</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+    <?php endif ?>
+  </ul>
 
-<!-- Nav Item - Dashboard -->
-<li class="nav-item active">
-  <a class="nav-link" href="<?= base_url('dashboard') ?>">
-    <i class="fas fa-fw fa-tachometer-alt"></i>
-    <span>Dashboard</span></a>
-</li>
-
-<!-- Divider -->
-<hr class="sidebar-divider">
-
-<!-- Heading -->
-<div class="sidebar-heading">
-  Interface
-</div>
-
-<!-- Nav Item - Pages Collapse Menu -->
-<li class="nav-item">
-  <a class="nav-link" href="#">
-    <i class="fas fa-fw fa-list-alt"></i>
-    <span>Pelanggaran</span></a>
-</li>
-<!-- <li class="nav-item">
-  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-    <i class="fas fa-fw fa-cog"></i>
-    <span>Pelanggaran</span>
-  </a>
-  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-    <div class="bg-white py-2 collapse-inner rounded">
-      <h6 class="collapse-header">Custom Components:</h6>
-      <a class="collapse-item" href="buttons.html">Buttons</a>
-      <a class="collapse-item" href="cards.html">Cards</a>
-    </div>
-  </div>
-</li> -->
-<!-- Divider -->
-<hr class="sidebar-divider">
-
-<!-- Heading -->
-<div class="sidebar-heading">
-  Data
-</div>
-
-<!-- Nav Item - Charts -->
-<li class="nav-item">
-  <a class="nav-link" href="<?= base_url('admin') ?>">
-    <i class="fas fa-fw fa-users"></i>
-    <span>Admin/Kesiswaan</span></a>
-</li>
-
-<!-- Nav Item - Charts -->
-<li class="nav-item">
-  <a class="nav-link" href="<?= base_url('siswa') ?>">
-    <i class="fas fa-fw fa-users"></i>
-    <span>Siswa</span></a>
-</li>
-
-<!-- Nav Item - Tables -->
-<li class="nav-item">
-  <a class="nav-link" href="<?= base_url('gurubk') ?>">
-    <i class="fas fa-fw fa-users"></i>
-    <span>Guru BK</span></a>
-</li>
-
-<!-- Nav Item - Tables -->
-<li class="nav-item">
-  <a class="nav-link" href="<?= base_url('osis') ?>">
-    <i class="fas fa-fw fa-users"></i>
-    <span>OSIS</span></a>
-</li>
-
-<!-- Nav Item - Tables -->
-<li class="nav-item">
-  <a class="nav-link" href="<?= base_url('prestasi') ?>">
-    <i class="fas fa-fw fa-award"></i>
-    <span>Prestasi</span></a>
-</li>
-<!-- Divider -->
-<hr class="sidebar-divider d-none d-md-block">
-
-<li class="nav-item">
-  <a class="nav-link" href="#">
-    <i class="fas fa-sign-out-alt"></i>
-    <span>Logout</span></a>
-</li>
-<!-- Divider -->
-<hr class="sidebar-divider d-none d-md-block">
-
-<!-- Sidebar Toggler (Sidebar) -->
-<div class="text-center d-none d-md-inline">
-  <button class="rounded-circle border-0" id="sidebarToggle"></button>
-</div>
-
-</ul>
+</aside>
