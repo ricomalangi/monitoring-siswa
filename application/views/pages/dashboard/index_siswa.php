@@ -47,7 +47,7 @@
               <?php if($total_prestasi_siswa == 0): ?>
                 <h6 style="font-size: 20px;">Kamu belum ada prestasi, yuk buat prestasimu!!</h6>
               <?php else : ?>
-                <h6><?= $total_prestasi_siswa ?> Prestasi</h6>
+                <h6><?= $total_prestasi_siswa ?> prestasi</h6>
               <?php endif ?>
             </div>
           </div>
@@ -65,7 +65,7 @@
               <i class="bi bi-people"></i>
             </div>
             <div class="ps-3">
-              <h6>10 Walikelas</h6>
+              <h6><?= $total_pelanggaran ?> pelanggaran</h6>
             </div>
           </div>
         </div>

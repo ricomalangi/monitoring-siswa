@@ -22,18 +22,32 @@ class Pelanggaran extends MY_Controller {
   
   public function index()
   {
-    $data['content'] = $this->pelanggaran->join('tb_nama_pelanggaran', 'id_nama_pelanggaran')->join('tb_siswa', 'id_siswa')->join('tb_walikelas', 'id_walikelas')->join('tb_petugas_piket', 'id_petugas_piket')->select('tb_nama_pelanggaran.nama_pelanggaran, tb_walikelas.nama_walikelas, tb_siswa.nama_siswa, tb_pelanggaran.*, tb_petugas_piket.nama_petugas')->get();
+    $data['content'] = $this->pelanggaran->join('tb_nama_pelanggaran', 'id_nama_pelanggaran')->join('tb_siswa', 'id_siswa')->join('tb_walikelas', 'id_walikelas')->join('tb_petugas_piket', 'id_petugas_piket')->select('tb_nama_pelanggaran.nama_pelanggaran, tb_walikelas.nama_walikelas, tb_siswa.nama_siswa, tb_pelanggaran.*, tb_petugas_piket.nama_petugas')->orderBy('id_pelanggaran', 'DESC')->get();
     $data['page'] = 'pages/pelanggaran/index';
     if($this->role === 'walikelas'){
-      $data['content'] = $this->pelanggaran->join('tb_nama_pelanggaran', 'id_nama_pelanggaran')->join('tb_siswa', 'id_siswa')->join('tb_walikelas', 'id_walikelas')->join('tb_petugas_piket', 'id_petugas_piket')->select('tb_nama_pelanggaran.nama_pelanggaran, tb_walikelas.nama_walikelas, tb_siswa.nama_siswa, tb_pelanggaran.*, tb_petugas_piket.nama_petugas')->where('tb_pelanggaran.status', 'approve')->get();
+      $data['page'] = 'pages/pelanggaran/index_walikelas';
+      $data['content'] = $this->pelanggaran->join('tb_nama_pelanggaran', 'id_nama_pelanggaran')->join('tb_siswa', 'id_siswa')->select('tb_nama_pelanggaran.nama_pelanggaran,tb_siswa.nama_siswa, tb_pelanggaran.*')->where('tb_pelanggaran.id_walikelas', $this->session->userdata('id_walikelas'))->where('tb_pelanggaran.status', 'approve')->orderBy('id_pelanggaran', 'DESC')->get();
     }
-    //echo('<pre>');print_r($this->role);echo('</pre>');die();
+    if($this->role === 'siswa'){
+      $data['page'] = 'pages/pelanggaran/index_siswa';
+      $data['skor_point'] = $this->pelanggaran->where('id_siswa', $this->session->userdata('id_siswa'))->sum('poin_pelanggaran');
+      // echo('<pre>');print_r($data['skor_point']);echo('</pre>');
+      // die();
+      $data['content'] = $this->pelanggaran->join('tb_nama_pelanggaran', 'id_nama_pelanggaran')->select('tb_nama_pelanggaran.nama_pelanggaran, tb_pelanggaran.*')->where('tb_pelanggaran.id_siswa', $this->session->userdata('id_siswa'))->where('tb_pelanggaran.status', 'approve')->orderBy('id_pelanggaran', 'DESC')->get();
+    }
+    if($this->role === 'osis'){
+      $data['page'] = 'pages/pelanggaran/index_osis';
+      $data['content'] = $this->pelanggaran->join('tb_nama_pelanggaran', 'id_nama_pelanggaran')->join('tb_siswa', 'id_siswa')->select('tb_nama_pelanggaran.nama_pelanggaran,tb_siswa.nama_siswa, tb_pelanggaran.*')->where('tb_pelanggaran.id_petugas_piket', $this->session->userdata('id_petugas_piket'))->orderBy('id_pelanggaran', 'DESC')->get();
+    }
     $this->view($data);
   }
 
   public function create()
   {
-
+    if($this->role !== 'osis'){
+      $data['page'] = 'layouts/_forbidden';
+      return $this->view($data);
+    }
     if (!$_POST) {
       $input = (object) $this->pelanggaran->getDefaultValues();
     } else {
@@ -66,6 +80,10 @@ class Pelanggaran extends MY_Controller {
 
   public function edit($id)
   {
+    if($this->role !== 'gurubk'){
+      $data['page'] = 'layouts/_forbidden';
+      return $this->view($data);
+    }
     $addRules = [
       [
         'field' => 'kategori_pelanggaran',
@@ -114,6 +132,24 @@ class Pelanggaran extends MY_Controller {
     }
     if ($this->pelanggaran->where('id_pelanggaran', $id)->update($data['input'])) {
       $this->session->set_flashdata('success', 'Data berhasil diperbaharui');
+    } else {
+      $this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan');
+    }
+    redirect(base_url('pelanggaran'));
+  }
+
+  public function delete($id)
+  {
+    if (!$_POST) {
+      redirect(base_url('pelanggaran'));
+    }
+    $content = $this->pelanggaran->where('id_pelanggaran', $id)->first();
+    if (!$content) {
+      $this->session->set_flashdata('warning', 'Maaf! Data tidak ditemukan.');
+      redirect(base_url('pelanggaran'));
+    }
+    if ($this->pelanggaran->where('id_pelanggaran', $id)->delete()) {
+      $this->session->set_flashdata('success', 'Data sudah berhasil dihapus');
     } else {
       $this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan');
     }

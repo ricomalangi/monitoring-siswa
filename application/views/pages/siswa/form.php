@@ -10,17 +10,17 @@
             <?= isset($input->nipd) ? form_hidden('nipd', $input->nipd) : '' ?>
             <div class="col-md-6">
               <label class="form-label">Nama siswa</label>
-              <input type="text" name="nama_siswa" class="form-control" value="<?= $input->nama_siswa ?>" required>
+              <input type="text" name="nama_siswa" class="form-control <?= form_error('nama_siswa') !== '' ? 'is-invalid' : '' ?>" value="<?= $input->nama_siswa ?>" required>
               <?= form_error('nama_siswa') ?>
             </div>
             <div class="col-md-6">
               <label class="form-label">Password</label>
-              <input type="password" name="password" class="form-control" >
+              <input type="password" name="password" class="form-control <?= form_error('password') !== '' ? 'is-invalid' : '' ?>">
               <?= form_error('password') ?>
             </div>
             <div class="col-md-12">
               <label class="form-label">Agama</label>
-              <select name="agama" class="form-select">
+              <select name="agama" class="form-select <?= form_error('agama') !== '' ? 'is-invalid' : '' ?>">
                 <option disabled>--pilih--</option>
                 <option value="ISLAM" <?= ($input->agama === 'ISLAM' ? 'selected' : '') ?>>Islam</option>
                 <option value="KRISTEN PROTESTAN" <?= ($input->agama === 'KRISTEN PROTESTAN' ? 'selected' : '') ?>>Kristen protestan</option>
@@ -33,25 +33,25 @@
             </div>
             <div class="col-md-6">
               <label class="form-label">NISN</label>
-              <input type="number" name="nisn" class="form-control" value="<?= $input->nisn ?>" required>
+              <input type="number" name="nisn" class="form-control <?= form_error('nisn') !== '' ? 'is-invalid' : '' ?>" value="<?= $input->nisn ?>" required>
               <?= form_error('nisn') ?>
             </div>
             <div class="col-md-6">
               <label class="form-label">NIPD</label>
-              <input type="number" name="nipd" class="form-control" value="<?= $input->nipd ?>" required>
+              <input type="number" name="nipd" class="form-control <?= form_error('nipd') !== '' ? 'is-invalid' : '' ?>" value="<?= $input->nipd ?>" required>
               <?= form_error('nipd') ?>
             </div>
             <div class="col-md-12">
               <label class="form-label">Jenis kelamin</label>
               <br>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="jenis_kelamin" value="L" <?= ($input->jenis_kelamin === 'L' ? 'checked' : '') ?>>
+                <input class="form-check-input <?= form_error('jenis_kelamin') !== '' ? 'is-invalid' : '' ?>" type="radio" name="jenis_kelamin" value="L" <?= ($input->jenis_kelamin === 'L' ? 'checked' : '') ?>>
                 <label class="form-check-label" for="exampleRadios1">
                   Laki-laki
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="jenis_kelamin" value="P" <?= ($input->jenis_kelamin === 'P' ? 'checked' : '') ?>>
+                <input class="form-check-input <?= form_error('jenis_kelamin') !== '' ? 'is-invalid' : '' ?>" type="radio" name="jenis_kelamin" value="P" <?= ($input->jenis_kelamin === 'P' ? 'checked' : '') ?>>
                 <label class="form-check-label" for="exampleRadios1">
                   Perempuan
                 </label>
@@ -60,17 +60,17 @@
             </div>
             <div class="col-md-6">
               <label class="form-label">Tempat lahir</label>
-              <input type="text" name="tempat_lahir" class="form-control" value="<?= $input->tempat_lahir ?? '' ?>" required>
-              <?= form_error('ttl') ?>
+              <input type="text" name="tempat_lahir" class="form-control <?= form_error('tempat_lahir') !== '' ? 'is-invalid' : '' ?>" value="<?= $input->tempat_lahir ?? '' ?>" required>
+              <?= form_error('tempat_lahir') ?>
             </div>
             <div class="col-md-6">
               <label class="form-label">Tanggal Lahir</label>
-              <input type="date" name="tanggal_lahir" class="form-control" value="<?= $input->tanggal_lahir ?? '' ?>" required>
-              <?= form_error('ttl') ?>
+              <input type="date" name="tanggal_lahir" class="form-control <?= form_error('tanggal_lahir') !== '' ? 'is-invalid' : '' ?>" value="<?= $input->tanggal_lahir ?? '' ?>" required>
+              <?= form_error('tanggal_lahir') ?>
             </div>
             <div class="col-md-12">
               <label class="form-label">Alamat</label>
-              <textarea name="alamat" class="form-control" rows="4"><?= ($input->alamat ?? '') ?></textarea>
+              <textarea name="alamat" class="form-control <?= form_error('alamat') !== '' ? 'is-invalid' : '' ?>" rows="4"><?= ($input->alamat ?? '') ?></textarea>
             </div>
             <div class="col-md-12">
               <button type="submit" class="btn btn-success mt-4 btn-md"><i class="bi bi-save-fill me-1"></i> Simpan</button>

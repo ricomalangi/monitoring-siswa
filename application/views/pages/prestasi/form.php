@@ -8,7 +8,7 @@
             <?= isset($input->id_prestasi) ? form_hidden('id_prestasi', $input->id_prestasi) : '' ?>
             <div class="col-md-12">
               <label class="form-label">Nama Siswa</label>
-              <select name="id_siswa" class="form-select select2" style="width: 100%;">
+              <select name="id_siswa" class="form-select select2 <?= form_error('id_siswa') !== '' ? 'is-invalid' : '' ?>" style="width: 100%;" required>
                 <option></option>
                 <?php foreach ($siswa as $item) : ?>
                   <option value="<?= $item->id_siswa ?>" <?= $input->id_siswa == $item->id_siswa ? 'selected' : '' ?>><?= $item->nama_siswa ?></option>
@@ -17,17 +17,18 @@
               <?= form_error('id_siswa') ?>
             </div>
             <div class="col-md-6">
-              <label class="form-label">Jenis Prestasi</label>
-              <select name="jenis_prestasi" class="form-select">
-                <option selected disabled>--pilih jenis prestasi--</option>
+              <label class="form-label">Jenis Prestasi <?= $input->id_siswa ?></label>
+              <select name="jenis_prestasi" class="form-select <?= form_error('jenis_prestasi') !== '' ? 'is-invalid' : '' ?>">
+                <option value="" disabled selected>--pilih jenis prestasi--</option>
                 <option value="wilayah" <?= $input->jenis_prestasi == 'wilayah' ? 'selected' : '' ?>>Wilayah</option>
                 <option value="nasional" <?= $input->jenis_prestasi == 'nasional' ? 'selected' : '' ?>>Nasional</option>
-                <option value="internasional">Internasional</option>
+                <option value="internasional" <?= $input->jenis_prestasi == 'internasional' ? 'selected' : '' ?>>Internasional</option>
               </select>
+              <?= form_error('jenis_prestasi') ?>
             </div>
             <div class="col-md-6">
               <label class="form-label">Keterangan prestasi</label>
-              <input type="text" name="keterangan_prestasi" class="form-control" value="<?= $input->keterangan_prestasi ?>" required>
+              <input type="text" name="keterangan_prestasi" class="form-control <?= form_error('keterangan_prestasi') !== '' ? 'is-invalid' : '' ?>" value="<?= $input->keterangan_prestasi ?>" >
               <?= form_error('keterangan_prestasi') ?>
             </div>
             <div class="col-md-6">

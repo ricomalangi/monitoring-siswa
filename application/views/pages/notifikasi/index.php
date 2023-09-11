@@ -3,22 +3,21 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Data Pelanggaran</h5>
+          <h5 class="card-title">Data Notifikasi</h5>
+          <a href="<?= base_url('notifikasi/create') ?>" class="btn btn-md btn-primary mb-4"><i class="bi bi-plus-square-fill"></i> Kirim notifkasi</a>
           <?php $this->load->view('/layouts/_alert') ?>
           <div class="table-responsive">
             <table class="table table-striped datatable">
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Nama Siswa</th>
-                  <th>Pelanggaran</th>
-                  <th style="width: 30%;">Status</th>
-                  <th>Petugas</th>
+                  <th>Siswa</th>
+                  <th>Guru BK</th>
                   <th>Walikelas</th>
-                  <th>Kategori Pelanggaran</th>
-                  <th>Poin Pelanggaran</th>
                   <th>Keterangan</th>
-                  <th>Waktu Dibuat</th>
+                  <th>Surat</th>
+                  <th>notifikasi dikirim</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -27,20 +26,18 @@
                   <tr>
                     <td><?= $no++ ?></td>
                     <td><?= $item->nama_siswa ?></td>
-                    <td><?= $item->nama_pelanggaran ?></td>
-                    <td>
-                      <?php if($item->status == 'waiting') : ?>
-                        <div class="alert alert-warning">Menunggu approve</div>
-                      <?php else : ?>
-                        <div class="alert alert-success">Approved</div>
-                      <?php endif ?>
-                    </td>
-                    <td><?= $item->nama_petugas ?></td>
+                    <td><?= $item->nama_gurubk ?></td>
                     <td><?= $item->nama_walikelas ?></td>
-                    <td><?= $item->kategori_pelanggaran ?></td>
-                    <td><?= $item->poin_pelanggaran ?></td>
                     <td><?= $item->keterangan ?></td>
+                    <td><?= $item->surat ?></td>
                     <td><?= $item->date_created ?></td>
+                    <td>
+                      <a href="<?= base_url("notifikasi/edit/$item->id_notifikasi") ?>" class="btn btn-sm btn-warning">Edit</a>
+                      <form action="<?= base_url("notifikasi/delete/$item->id_notifikasi") ?>" method="POST" class="d-inline">
+                        <input type="hidden" name="id" value="<?= $item->id_notifikasi ?>">
+                        <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</button>
+                      </form>
+                    </td>
                   </tr>
                 <?php endforeach ?>
               </tbody>

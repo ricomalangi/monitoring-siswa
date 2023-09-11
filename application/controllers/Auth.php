@@ -49,7 +49,6 @@ class Auth extends CI_Controller {
 
     // check osis
     $data['petugas_piket'] = $this->osis->where('nama_petugas', $akun)->first();
-    var_dump($data['petugas_piket']);
     if (!empty($data['petugas_piket']) && hashEncryptVerify($password, $data['petugas_piket']->password)) {
       $sess_data = [
         'id_petugas_piket' => $data['petugas_piket']->id_petugas_piket,
@@ -58,7 +57,7 @@ class Auth extends CI_Controller {
         'is_login' => 1
       ];
       $this->session->set_userdata($sess_data);
-      redirect(base_url('dashboard/osis'));
+      redirect(base_url('dashboard'));
     }
 
     // check Walikelas
@@ -77,7 +76,7 @@ class Auth extends CI_Controller {
         'is_login' => 1
       ];
       $this->session->set_userdata($sess_data);
-      redirect(base_url('dashboard/walikelas'));
+      redirect(base_url('dashboard'));
     }
 
     // check bk
@@ -87,11 +86,16 @@ class Auth extends CI_Controller {
         'id_bk' => $data['gurubk']->id_bk,
         'nama_bk' => $data['gurubk']->nama_bk,
         'nip' => $data['gurubk']->nip,
+        'tempat_lahir' => $data['gurubk']->tempat_lahir,
+        'tanggal_lahir' => $data['gurubk']->tanggal_lahir,
+        'agama' => $data['gurubk']->agama,
+        'alamat' => $data['gurubk']->alamat,
+        'jenis_kelamin' => $data['gurubk']->jenis_kelamin,
         'role' => 'gurubk',
         'is_login' => 1
       ];
       $this->session->set_userdata($sess_data);
-      redirect(base_url('dashboard/gurubk'));
+      redirect(base_url('dashboard'));
     } 
 
     // check siswa
@@ -111,7 +115,7 @@ class Auth extends CI_Controller {
         'is_login' => 1
       ];
       $this->session->set_userdata($sess_data);
-      redirect(base_url('dashboard/siswa'));
+      redirect(base_url('dashboard'));
     }
 
     $this->session->set_flashdata('warning', 'Maaf! username/password salah');

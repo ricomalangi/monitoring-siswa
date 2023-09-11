@@ -105,6 +105,12 @@ class MY_Model extends CI_Model
     $this->db->delete($this->table);
     return $this->db->affected_rows();
   }
+
+  public function sum($column)
+  {
+    $this->db->select_sum($column);
+    return $this->db->get($this->table)->row_array();
+  }
 }
 
 /* End of file ModelName.php */

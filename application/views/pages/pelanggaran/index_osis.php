@@ -1,9 +1,16 @@
+<?php
+$role = $this->session->userdata('role');
+$permit = ['admin', 'osis', 'gurubk'];
+?>
 <section class="section">
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Data Pelanggaran</h5>
+          <?php if(in_array($role, $permit)): ?>
+          <a href="<?= base_url('pelanggaran/create') ?>" class="btn btn-md btn-primary mb-4"><i class="bi bi-plus-square-fill"></i> Tambah data</a>
+          <?php endif ?>
           <?php $this->load->view('/layouts/_alert') ?>
           <div class="table-responsive">
             <table class="table table-striped datatable">
@@ -12,12 +19,17 @@
                   <th>No</th>
                   <th>Nama Siswa</th>
                   <th>Pelanggaran</th>
+                  <?php if(in_array($role, $permit)) : ?>
                   <th style="width: 30%;">Status</th>
-                  <th>Petugas</th>
-                  <th>Walikelas</th>
-                  <th>Kategori Pelanggaran</th>
-                  <th>Poin Pelanggaran</th>
-                  <th>Keterangan</th>
+                  <?php endif ?>
+                  <?php if($role === 'gurubk') : ?>
+                    <th>Petugas</th>
+                    <th>Walikelas</th>
+                    <th>Kategori Pelanggaran</th>
+                    <th>Poin Pelanggaran</th>
+                    <th>Keterangan</th>
+                    <th>Action</th>
+                  <?php endif ?>
                   <th>Waktu Dibuat</th>
                 </tr>
               </thead>
@@ -28,6 +40,7 @@
                     <td><?= $no++ ?></td>
                     <td><?= $item->nama_siswa ?></td>
                     <td><?= $item->nama_pelanggaran ?></td>
+                    <?php if(in_array($role, $permit)) : ?>
                     <td>
                       <?php if($item->status == 'waiting') : ?>
                         <div class="alert alert-warning">Menunggu approve</div>
@@ -35,11 +48,23 @@
                         <div class="alert alert-success">Approved</div>
                       <?php endif ?>
                     </td>
+                    <?php endif ?>
+                    <?php if($role === 'gurubk'): ?>
                     <td><?= $item->nama_petugas ?></td>
                     <td><?= $item->nama_walikelas ?></td>
                     <td><?= $item->kategori_pelanggaran ?></td>
                     <td><?= $item->poin_pelanggaran ?></td>
                     <td><?= $item->keterangan ?></td>
+                    <?php endif ?>
+                    <?php if($role === 'gurubk') : ?>
+                    <td>
+                      <a href="<?= base_url("pelanggaran/edit/$item->id_pelanggaran") ?>" class="btn btn-sm btn-warning">Edit</a>
+                      <form action="<?= base_url("pelanggaran/delete/$item->id_pelanggaran") ?>" method="POST" class="d-inline">
+                        <input type="hidden" name="id" value="<?= $item->id_pelanggaran ?>">
+                        <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</button>
+                      </form>
+                    </td>
+                    <?php endif ?>
                     <td><?= $item->date_created ?></td>
                   </tr>
                 <?php endforeach ?>

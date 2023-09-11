@@ -3,15 +3,19 @@
     <div class="col-xl-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Data Prestasi Saya</h5>
+          <h5 class="card-title">Data Prestasi Siswa</h5>
+          <a href="<?= base_url('prestasi/create') ?>" class="btn btn-md btn-primary mb-4"><i class="bi bi-plus-square-fill"></i> Tambah prestasi</a>
+          <?php $this->load->view('/layouts/_alert') ?>
           <div class="table-responsive">
             <table class="table">
               <thead>
                 <tr>
                   <th>No</th>
+                  <th>Nama Siswa</th>
                   <th>Jenis Prestasi</th>
                   <th>Keterangan</th>
                   <th>Sertifikat</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -26,8 +30,15 @@
                       <?php if ($item->sertifikat) : ?>
                         <a href="<?= base_url("/sertifikat/$item->sertifikat") ?>" class="btn btn-secondary btn-sm btn-show-sertifikat">Lihat sertifikat</a>
                       <?php else : ?>
-                        <div class="alert alert-warning">Tidak ada sertifikat</div>
+                        <button type="button" class="btn btn-warning btn-sm">Tidak ada sertifikat</button>
                       <?php endif ?>
+                    </td>
+                    <td>
+                      <a href="<?= base_url("prestasi/edit/$item->id_prestasi") ?>" class="btn btn-sm btn-warning">Edit</a>
+                      <form action="<?= base_url("prestasi/delete/$item->id_prestasi") ?>" method="POST" class="d-inline">
+                        <input type="hidden" name="id" value="<?= $item->id_prestasi ?>">
+                        <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</button>
+                      </form>
                     </td>
                   </tr>
                 <?php endforeach ?>

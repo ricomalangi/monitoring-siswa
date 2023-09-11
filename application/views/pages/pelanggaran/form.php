@@ -57,7 +57,7 @@ $permit = ['admin', 'gurubk'];
             </div>
             <div class="col-md-12">
               <label class="form-label">Keterangan</label>
-              <textarea name="keterangan" rows="4" class="form-control <?= form_error('keterangan') !== '' ? 'is-invalid' : '' ?>"><?= $input->keterangan ?></textarea>
+              <textarea name="keterangan" rows="4" class="form-control <?= form_error('keterangan') !== '' ? 'is-invalid' : '' ?>" required><?= $input->keterangan ?></textarea>
               <?= form_error('keterangan') ?>
             </div>
             <div class="col-md-12">

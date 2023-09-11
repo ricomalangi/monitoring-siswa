@@ -2,28 +2,26 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Notifikasi_model extends MY_Model {
-  public $table = 'tb_notifikasi';
+class Kelas_model extends MY_Model {
+  public $table = 'tb_kelas_siswa';
   public function getDefaultValues()
   {
     return [
-      'id_siswa' => '',
-      'id_walikelas' => '',
-      'keterangan' => '',
-      'surat' => ''
+      'id_kelas' => '',
+      'id_siswa' => ''
     ];
   }
-  public function getValidationRules($add_rules = null)
+  public function getValidationRules()
   {
     $validationRules = [
       [
-        'field' => 'keterangan',
-        'label' => 'Keterangan',
+        'field' => 'id_kelas',
+        'label' => 'Kelas',
         'rules' => 'trim|required'
       ],
       [
-        'field' => 'surat',
-        'label' => 'Surat',
+        'field' => 'id_siswa',
+        'label' => 'Siswa',
         'rules' => 'trim|required'
       ],
     ];

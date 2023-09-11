@@ -3,18 +3,16 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Data Pelanggaran</h5>
-          <?php $this->load->view('/layouts/_alert') ?>
+          <h5 class="card-title">Pelanggaran Saya</h5>
+          <div class="alert alert-warning">
+            <strong>Poin pelanggaran saya: </strong> <?= $skor_point['poin_pelanggaran'] ?>
+          </div>
           <div class="table-responsive">
             <table class="table table-striped datatable">
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Nama Siswa</th>
                   <th>Pelanggaran</th>
-                  <th style="width: 30%;">Status</th>
-                  <th>Petugas</th>
-                  <th>Walikelas</th>
                   <th>Kategori Pelanggaran</th>
                   <th>Poin Pelanggaran</th>
                   <th>Keterangan</th>
@@ -26,21 +24,11 @@
                 foreach ($content as $item) : ?>
                   <tr>
                     <td><?= $no++ ?></td>
-                    <td><?= $item->nama_siswa ?></td>
                     <td><?= $item->nama_pelanggaran ?></td>
-                    <td>
-                      <?php if($item->status == 'waiting') : ?>
-                        <div class="alert alert-warning">Menunggu approve</div>
-                      <?php else : ?>
-                        <div class="alert alert-success">Approved</div>
-                      <?php endif ?>
-                    </td>
-                    <td><?= $item->nama_petugas ?></td>
-                    <td><?= $item->nama_walikelas ?></td>
                     <td><?= $item->kategori_pelanggaran ?></td>
                     <td><?= $item->poin_pelanggaran ?></td>
                     <td><?= $item->keterangan ?></td>
-                    <td><?= $item->date_created ?></td>
+                    <td><?= $item->date_created ?></td>             
                   </tr>
                 <?php endforeach ?>
               </tbody>
