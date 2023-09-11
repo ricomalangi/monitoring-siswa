@@ -7,7 +7,7 @@
           <a href="<?= base_url('prestasi/create') ?>" class="btn btn-md btn-primary mb-4"><i class="bi bi-plus-square-fill"></i> Tambah prestasi</a>
           <?php $this->load->view('/layouts/_alert') ?>
           <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="datatable">
               <thead>
                 <tr>
                   <th>No</th>

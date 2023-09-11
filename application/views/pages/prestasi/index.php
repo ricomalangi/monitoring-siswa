@@ -6,7 +6,7 @@
           <h5 class="card-title">Data Prestasi Siswa</h5>
           <?php $this->load->view('/layouts/_alert') ?>
           <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="datatable">
               <thead>
                 <tr>
                   <th>No</th>

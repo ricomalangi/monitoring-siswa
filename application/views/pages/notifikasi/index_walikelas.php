@@ -1,17 +1,19 @@
 <section class="section">
   <div class="row">
-    <div class="col-xl-12">
+    <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Data Prestasi Saya</h5>
+          <h5 class="card-title">Data Notifikasi</h5>
           <div class="table-responsive">
-            <table class="table" id="datatable">
+            <table class="table table-striped" id="datatable">
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Jenis Prestasi</th>
+                  <th>Siswa</th>
+                  <th>Dikirim Oleh</th>
                   <th>Keterangan</th>
-                  <th>Sertifikat</th>
+                  <th>Surat</th>
+                  <th>notifikasi dikirim</th>
                 </tr>
               </thead>
               <tbody>
@@ -19,15 +21,17 @@
                 foreach ($content as $item) : ?>
                   <tr>
                     <td><?= $no++ ?></td>
-                    <td><?= $item->jenis_prestasi ?></td>
-                    <td><?= $item->keterangan_prestasi ?></td>
+                    <td><?= $item->nama_siswa ?></td>
+                    <td><?= $item->nama_bk ?></td>
+                    <td><?= $item->keterangan ?></td>
                     <td>
-                      <?php if ($item->sertifikat) : ?>
-                        <a href="<?= base_url("/sertifikat/$item->sertifikat") ?>" class="btn btn-secondary btn-sm btn-show-sertifikat">Lihat sertifikat</a>
+                      <?php if ($item->surat) : ?>
+                        <a href="<?= base_url("/surat/$item->surat") ?>" class="btn btn-secondary btn-sm btn-show-surat">Lihat surat</a>
                       <?php else : ?>
-                        <div class="alert alert-warning">Tidak ada sertifikat</div>
+                        <div class="alert alert-warning">Tidak ada surat</div>
                       <?php endif ?>
                     </td>
+                    <td><?= $item->date_created ?></td>
                   </tr>
                 <?php endforeach ?>
               </tbody>
@@ -37,7 +41,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade" id="sertifikat-attachment">
+  <div class="modal fade" id="surat-attachment">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-body">
@@ -50,14 +54,13 @@
     </div>
   </div>
 </section>
-
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    let sertifikatAttachment = $('#sertifikat-attachment')
-    $('.btn-show-sertifikat').on('click', function(e) {
+    let suratAttachment = $('#surat-attachment')
+    $('.btn-show-surat').on('click', function(e) {
       e.preventDefault()
-      sertifikatAttachment.modal('show')
-      sertifikatAttachment.find('#frame-preview').html('<iframe class="w-100" style="height:100vh;" src="' + $(this).attr('href') + '"></iframe>')
+      suratAttachment.modal('show')
+      suratAttachment.find('#frame-preview').html('<iframe class="w-100" style="height:100vh;" src="' + $(this).attr('href') + '"></iframe>')
     })
   })
 </script>

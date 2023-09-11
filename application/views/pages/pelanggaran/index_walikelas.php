@@ -5,7 +5,7 @@
         <div class="card-body">
           <h5 class="card-title">Data Pelanggaran</h5>
           <div class="table-responsive">
-            <table class="table table-striped datatable">
+            <table class="table table-striped" id="datatable">
               <thead>
                 <tr>
                   <th>No</th>

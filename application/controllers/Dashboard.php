@@ -20,7 +20,7 @@ class Dashboard extends MY_Controller {
     $this->load->model('Walikelas_model', 'walikelas');
     $this->load->model('Osis_model', 'osis');
     $this->load->model('Pelanggaran_model', 'pelanggaran');
-    
+    $this->load->model('Kelas_model', 'kelas');
   }
   
   public function index(){
@@ -62,6 +62,7 @@ class Dashboard extends MY_Controller {
       return $this->view($data);
     } else if($this->role === 'siswa'){
       $data['page'] = 'pages/dashboard/index_siswa';
+      $data['kelas'] = $this->kelas->join('tb_kelas', 'id_kelas')->where('tb_kelas_siswa.id_siswa', $this->session->userdata('id_siswa'))->select('nama_kelas')->get();
       $data['nama_siswa'] = $this->session->userdata('nama_siswa');
       $data['nisn'] = $this->session->userdata('nisn');
       $data['nipd'] = $this->session->userdata('nipd');
@@ -72,6 +73,8 @@ class Dashboard extends MY_Controller {
       $data['tanggal_lahir'] = $this->session->userdata('tanggal_lahir');
       $data['total_prestasi_siswa'] = $this->prestasi->where('id_siswa', $this->session->userdata('id_siswa'))->count();
       $data['total_pelanggaran'] = $this->prestasi->where('id_siswa', $this->session->userdata('id_siswa'))->count();
+      // echo("<pre>");print_r($data['kelas']);echo("</pre>");
+      // die();
       return $this->view($data);
     } else {
       $data['page'] = 'layouts/_forbidden';

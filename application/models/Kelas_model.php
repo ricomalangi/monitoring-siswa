@@ -8,7 +8,8 @@ class Kelas_model extends MY_Model {
   {
     return [
       'id_kelas' => '',
-      'id_siswa' => ''
+      'id_siswa' => '',
+      'id_walikelas' => ''
     ];
   }
   public function getValidationRules()
@@ -22,6 +23,11 @@ class Kelas_model extends MY_Model {
       [
         'field' => 'id_siswa',
         'label' => 'Siswa',
+        'rules' => 'trim|required'
+      ],
+      [
+        'field' => 'id_walikelas',
+        'label' => 'Walikelas',
         'rules' => 'trim|required'
       ],
     ];

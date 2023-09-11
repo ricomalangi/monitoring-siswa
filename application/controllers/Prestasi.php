@@ -45,8 +45,6 @@ class Prestasi extends MY_Controller
     } else {
       $input = (object) $this->input->post(null, true);
       $input->id_walikelas = $this->session->userdata('id_walikelas');
-      // echo('<pre>');print_r($input);echo('</pre>');
-      // die();
     }
 
     if (!empty($_FILES) && $_FILES['sertifikat']['name'] !== '') {
@@ -60,12 +58,12 @@ class Prestasi extends MY_Controller
     }
 
     if (!$this->prestasi->validate()) {
-      $this->prestasi->table = 'tb_siswa';
+      $this->prestasi->table = 'tb_kelas_siswa';
       $data['title'] = 'Tambah prestasi';
       $data['addon_css'] = base_url('assets/vendor/select2/css/select2.min.css');
       $data['addon_js'] = base_url('assets/vendor/select2/js/select2.full.min.js');
       $data['input'] = $input;
-      $data['siswa'] = $this->prestasi->select('id_siswa,nama_siswa')->get();
+      $data['siswa'] = $this->prestasi->join('tb_siswa', 'id_siswa')->where('id_walikelas', $this->session->userdata('id_walikelas'))->select('tb_siswa.id_siswa,tb_siswa.nama_siswa')->get();
       $data['form_action'] = base_url('prestasi/create');
       $data['page'] = 'pages/prestasi/form';
       $this->view($data);

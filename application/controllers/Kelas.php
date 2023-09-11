@@ -15,11 +15,12 @@ class Kelas extends MY_Controller {
       return;
     }
     $this->load->model('Siswa_model', 'siswa');
+    $this->load->model('Walikelas_model', 'walikelas');
   }
   
   public function index()
   {
-    $data['content'] = $this->kelas->join('tb_siswa', 'id_siswa')->join('tb_kelas', 'id_kelas')->orderBy('tb_kelas.id_kelas', 'ASC')->get();
+    $data['content'] = $this->kelas->join('tb_siswa', 'id_siswa')->join('tb_kelas', 'id_kelas')->join('tb_walikelas', 'id_walikelas')->orderBy('tb_kelas.id_kelas', 'ASC')->get();
     $data['page'] = 'pages/kelas/index';
     $this->view($data);
   }
@@ -40,6 +41,7 @@ class Kelas extends MY_Controller {
       $data['input'] = $input;
       $data['siswa'] = $this->siswa->select('id_siswa,nama_siswa')->get();
       $data['nama_kelas'] = $this->kelas->select('id_kelas,nama_kelas')->get();
+      $data['nama_walikelas'] = $this->walikelas->select('id_walikelas,nama_walikelas')->get();
       $data['form_action'] = base_url('kelas/create');
       $data['page'] = 'pages/kelas/form';
       $this->kelas->table = 'tb_kelas_siswa';

@@ -8,7 +8,7 @@
             <strong>Poin pelanggaran saya: </strong> <?= $skor_point['poin_pelanggaran'] ?>
           </div>
           <div class="table-responsive">
-            <table class="table table-striped datatable">
+            <table class="table table-striped" id="datatable">
               <thead>
                 <tr>
                   <th>No</th>

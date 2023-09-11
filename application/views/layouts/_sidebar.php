@@ -74,7 +74,7 @@ $role = $this->session->userdata('role');
       </li>
       <li class="nav-item">
         <a class="nav-link <?= $this->uri->segment(1) === 'notifikasi' ? '' : 'collapsed' ?>" href="<?= base_url('notifikasi') ?>">
-          <i class="bi bi-trophy"></i>
+          <i class="bi bi-bell"></i>
           <span>Notifikasi</span>
         </a>
       </li>
@@ -100,7 +100,7 @@ $role = $this->session->userdata('role');
       </li>
       <li class="nav-item">
         <a class="nav-link <?= $this->uri->segment(1) === 'notifikasi' ? '' : 'collapsed' ?>" href="<?= base_url('notifikasi') ?>">
-          <i class="bi bi-trophy"></i>
+          <i class="bi bi-bell"></i>
           <span>Notifikasi</span>
         </a>
       </li>

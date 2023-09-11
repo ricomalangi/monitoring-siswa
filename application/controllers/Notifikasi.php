@@ -25,18 +25,11 @@ class Notifikasi extends MY_Controller {
     $data['page'] = 'pages/notifikasi/index';
     if($this->role === 'walikelas'){
       $data['page'] = 'pages/notifikasi/index_walikelas';
-      $data['content'] = $this->notifikasi->join('tb_nama_notifikasi', 'id_nama_notifikasi')->join('tb_siswa', 'id_siswa')->select('tb_nama_notifikasi.nama_notifikasi,tb_siswa.nama_siswa, tb_notifikasi.*')->where('tb_notifikasi.id_walikelas', $this->session->userdata('id_walikelas'))->where('tb_notifikasi.status', 'approve')->orderBy('id_notifikasi', 'DESC')->get();
+      $data['content'] = $this->notifikasi->join('tb_bk', 'id_bk')->join('tb_siswa', 'id_siswa')->select('tb_bk.nama_bk, tb_siswa.nama_siswa, tb_notifikasi.*')->where('tb_notifikasi.id_walikelas', $this->session->userdata('id_walikelas'))->orderBy('id_notifikasi', 'DESC')->get();
     }
     if($this->role === 'siswa'){
       $data['page'] = 'pages/notifikasi/index_siswa';
-      $data['skor_point'] = $this->notifikasi->where('id_siswa', $this->session->userdata('id_siswa'))->sum('poin_notifikasi');
-      // echo('<pre>');print_r($data['skor_point']);echo('</pre>');
-      // die();
-      $data['content'] = $this->notifikasi->join('tb_nama_notifikasi', 'id_nama_notifikasi')->select('tb_nama_notifikasi.nama_notifikasi, tb_notifikasi.*')->where('tb_notifikasi.id_siswa', $this->session->userdata('id_siswa'))->where('tb_notifikasi.status', 'approve')->orderBy('id_notifikasi', 'DESC')->get();
-    }
-    if($this->role === 'osis'){
-      $data['page'] = 'pages/notifikasi/index_osis';
-      $data['content'] = $this->notifikasi->join('tb_nama_notifikasi', 'id_nama_notifikasi')->join('tb_siswa', 'id_siswa')->select('tb_nama_notifikasi.nama_notifikasi,tb_siswa.nama_siswa, tb_notifikasi.*')->where('tb_notifikasi.id_petugas_piket', $this->session->userdata('id_petugas_piket'))->orderBy('id_notifikasi', 'DESC')->get();
+      $data['content'] = $this->notifikasi->join('tb_bk', 'id_bk')->join('tb_siswa', 'id_siswa')->select('tb_bk.nama_bk, tb_siswa.nama_siswa, tb_notifikasi.*')->where('tb_notifikasi.id_siswa', $this->session->userdata('id_siswa'))->orderBy('id_notifikasi', 'DESC')->get();
     }
     $this->view($data);
   }
@@ -51,9 +44,18 @@ class Notifikasi extends MY_Controller {
       $input = (object) $this->notifikasi->getDefaultValues();
     } else {
       $input = (object) $this->input->post(null, true);
-      $input->id_petugas_piket = $this->session->userdata('id_petugas_piket');
-      $input->status = 'waiting';
+      $input->id_bk = $this->session->userdata('id_bk');
       $input->date_created = date('Y-m-d H:i:s');
+    }
+
+    if (!empty($_FILES) && $_FILES['surat']['name'] !== '') {
+      $namaSurat = url_title($input->id_siswa, '-', true) . '-' . date('YmdHis');
+      $upload = $this->notifikasi->uploadSurat('surat', $namaSurat);
+      if ($upload) {
+        $input->surat = $upload['file_name'];
+      } else {
+        redirect(base_url('notifikasi/create'));
+      }
     }
 
     if (!$this->notifikasi->validate()) {

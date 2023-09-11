@@ -10,6 +10,10 @@
               <td><?= $nama_siswa ?></td>
             </tr>
             <tr>
+              <th style="width: 20%;">Kelas</th>
+              <td><?= $kelas->nama_kelas ?? '' ?></td>
+            </tr>
+            <tr>
               <th>NIPD</th>
               <td><?= $nipd ?></td>
             </tr>

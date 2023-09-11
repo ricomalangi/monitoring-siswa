@@ -6,7 +6,7 @@
           <h5 class="card-title">Data Pelanggaran</h5>
           <?php $this->load->view('/layouts/_alert') ?>
           <div class="table-responsive">
-            <table class="table table-striped datatable">
+            <table class="table table-striped" id="datatable">
               <thead>
                 <tr>
                   <th>No</th>
@@ -19,6 +19,7 @@
                   <th>Poin Pelanggaran</th>
                   <th>Keterangan</th>
                   <th>Waktu Dibuat</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -41,6 +42,13 @@
                     <td><?= $item->poin_pelanggaran ?></td>
                     <td><?= $item->keterangan ?></td>
                     <td><?= $item->date_created ?></td>
+                    <td>
+                      <a href="<?= base_url("pelanggaran/edit/$item->id_pelanggaran") ?>" class="btn btn-sm btn-warning">Edit</a>
+                      <form action="<?= base_url("pelanggaran/delete/$item->id_pelanggaran") ?>" method="POST" class="d-inline">
+                        <input type="hidden" name="id" value="<?= $item->id_pelanggaran ?>">
+                        <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</button>
+                      </form>
+                    </td>
                   </tr>
                 <?php endforeach ?>
               </tbody>

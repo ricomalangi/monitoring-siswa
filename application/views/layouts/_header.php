@@ -17,7 +17,7 @@ if ($role === 'admin') {
   <div class="d-flex align-items-center justify-content-between">
     <a href="<?= base_url('dashboard') ?>" class="logo d-flex align-items-center">
       <img src="<?= base_url() ?>assets/img/logo.png" alt="">
-      <span class="d-none d-lg-block">Monitoring</span>
+      <span class="d-none d-lg-block">SPLSiswa</span>
     </a>
     <i class="bi bi-list toggle-sidebar-btn"></i>
   </div><!-- End Logo -->
@@ -25,12 +25,12 @@ if ($role === 'admin') {
 
   <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
-      <li class="nav-item dropdown">
+      <!-- <li class="nav-item dropdown">
 
         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
           <i class="bi bi-bell"></i>
           <span class="badge bg-primary badge-number">4</span>
-        </a><!-- End Notification Icon -->
+        </a>
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
           <li class="dropdown-header">
@@ -96,9 +96,9 @@ if ($role === 'admin') {
             <a href="#">Show all notifications</a>
           </li>
 
-        </ul><!-- End Notification Dropdown Items -->
+        </ul>
 
-      </li><!-- End Notification Nav -->
+      </li> -->
 
       <li class="nav-item dropdown pe-3">
         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">

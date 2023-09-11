@@ -17,21 +17,53 @@ class Notifikasi_model extends MY_Model {
   {
     $validationRules = [
       [
-        'field' => 'keterangan',
-        'label' => 'Keterangan',
+        'field' => 'id_siswa',
+        'label' => 'Siswa',
         'rules' => 'trim|required'
       ],
       [
-        'field' => 'surat',
-        'label' => 'Surat',
+        'field' => 'id_walikelas',
+        'label' => 'Walikelas',
         'rules' => 'trim|required'
       ],
+      [
+        'field' => 'keterangan',
+        'label' => 'Keterangan',
+        'rules' => 'trim|required'
+      ]
     ];
 
     return $validationRules;
   }
   
+  public function uploadSurat($fieldName, $fileName)
+  {
+    $config = [
+      'upload_path' => './surat',
+      'file_name' => $fileName,
+      'allowed_types' => 'pdf',
+      'max_size' => 2048,
+      'max_width' => 0,
+      'max_height' => 0,
+      'overwrite' => true,
+      'file_ext_tolower' => true
+    ];
+    $this->load->library('upload', $config);
 
+    if ($this->upload->do_upload($fieldName)) {
+      return $this->upload->data();
+    } else {
+      $this->session->set_flashdata('surat_error', $this->upload->display_errors('', ''));
+      return false;
+    }
+  }
+
+  public function deleteSurat($fileName)
+  {
+    if (file_exists("./surat/$fileName")) {
+      unlink("./surat/$fileName");
+    }
+  }
 }
 
 /* End of file Notifikasi_model.php */

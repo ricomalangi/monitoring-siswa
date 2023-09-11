@@ -7,11 +7,12 @@
           <a href="<?= base_url('kelas/create') ?>" class="btn btn-md btn-primary mb-4"><i class="bi bi-plus-square-fill"></i> Tambah data</a>
           <?php $this->load->view('/layouts/_alert') ?>
           <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="datatable">
               <thead>
                 <tr>
                   <th>No</th>
                   <th>Nama Siswa</th>
+                  <th>Nama WaliKelas</th>
                   <th>Kelas</th>
                   <th>Action</th>
                 </tr>
@@ -22,6 +23,7 @@
                   <tr>
                     <td><?= $no++ ?></td>
                     <td><?= $item->nama_siswa ?></td>
+                    <td><?= $item->nama_walikelas ?></td>
                     <td><?= $item->nama_kelas ?></td>
                     <td>
                       <a href="<?= base_url("kelas/edit/$item->id_kelas_siswa") ?>" class="btn btn-sm btn-warning">Edit</a>
