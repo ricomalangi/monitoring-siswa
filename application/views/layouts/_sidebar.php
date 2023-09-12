@@ -12,11 +12,11 @@ $role = $this->session->userdata('role');
     </li>
     <?php if ($role == 'admin') : ?>
       <li class="nav-item">
-      <a class="nav-link <?= $this->uri->segment(1) === 'kelas' ? '' : 'collapsed' ?>" href="<?= base_url('kelas') ?>">
-        <i class="bi bi-grid"></i>
-        <span>Kelas</span>
-      </a>
-    </li>
+        <a class="nav-link <?= $this->uri->segment(1) === 'kelas' ? '' : 'collapsed' ?>" href="<?= base_url('kelas') ?>">
+          <i class="bi bi-grid"></i>
+          <span>Kelas</span>
+        </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link <?= $this->uri->segment(1) === 'admin' || $this->uri->segment(1) === 'siswa' || $this->uri->segment(1) === 'gurubk' || $this->uri->segment(1) === 'osis' || $this->uri->segment(1) === 'prestasi' || $this->uri->segment(1) === 'walikelas' || $this->uri->segment(1) === 'namapelanggaran' ? '' : 'collapsed'  ?>" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Data</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -133,6 +133,12 @@ $role = $this->session->userdata('role');
         </a>
       </li>
     <?php endif ?>
+    <li class="nav-item">
+      <a class="nav-link <?= $this->uri->segment(1) === 'profile' ? '' : 'collapsed' ?>" href="<?= base_url('profile') ?>">
+        <i class="bi bi-person"></i>
+        <span>My Profile</span>
+      </a>
+    </li>
   </ul>
 
 </aside>

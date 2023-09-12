@@ -24,6 +24,10 @@ class Pelanggaran extends MY_Controller {
   {
     $data['content'] = $this->pelanggaran->join('tb_nama_pelanggaran', 'id_nama_pelanggaran')->join('tb_siswa', 'id_siswa')->join('tb_walikelas', 'id_walikelas')->join('tb_petugas_piket', 'id_petugas_piket')->select('tb_nama_pelanggaran.nama_pelanggaran, tb_walikelas.nama_walikelas, tb_siswa.nama_siswa, tb_pelanggaran.*, tb_petugas_piket.nama_petugas')->orderBy('id_pelanggaran', 'DESC')->get();
     $data['page'] = 'pages/pelanggaran/index';
+    if($this->role === 'gurubk'){
+      $data['page'] = 'pages/pelanggaran/index_gurubk';
+      $data['content'] = $this->pelanggaran->join('tb_nama_pelanggaran', 'id_nama_pelanggaran')->join('tb_siswa', 'id_siswa')->join('tb_walikelas', 'id_walikelas')->join('tb_petugas_piket', 'id_petugas_piket')->select('tb_nama_pelanggaran.nama_pelanggaran, tb_walikelas.nama_walikelas, tb_siswa.nama_siswa, tb_pelanggaran.*, tb_petugas_piket.nama_petugas')->orderBy('id_pelanggaran', 'DESC')->get();
+    }
     if($this->role === 'walikelas'){
       $data['page'] = 'pages/pelanggaran/index_walikelas';
       $data['content'] = $this->pelanggaran->join('tb_nama_pelanggaran', 'id_nama_pelanggaran')->join('tb_siswa', 'id_siswa')->select('tb_nama_pelanggaran.nama_pelanggaran,tb_siswa.nama_siswa, tb_pelanggaran.*')->where('tb_pelanggaran.id_walikelas', $this->session->userdata('id_walikelas'))->where('tb_pelanggaran.status', 'approve')->orderBy('id_pelanggaran', 'DESC')->get();

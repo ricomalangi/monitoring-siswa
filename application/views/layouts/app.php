@@ -22,7 +22,7 @@
   <link href="<?= base_url() ?>assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="<?= base_url() ?>assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="<?= base_url() ?>assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>assets/css/datatables.min.css">
   <!-- <link href="<?= base_url() ?>assets/vendor/simple-datatables/style.css" rel="stylesheet"> -->
   <link href="<?= base_url() ?>assets/css/select2.min.css" rel="stylesheet">
 
@@ -63,7 +63,7 @@
   <script src="<?= base_url() ?>assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="<?= base_url() ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- <script src="<?= base_url() ?>assets/vendor/simple-datatables/simple-datatables.js"></script> -->
-  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="<?= base_url() ?>assets/js/datatables.min.js"></script>
   <!-- Template Main JS File -->
   <script src="<?= base_url() ?>assets/js/main.js"></script>
   <script>

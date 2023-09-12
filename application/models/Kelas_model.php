@@ -23,7 +23,7 @@ class Kelas_model extends MY_Model {
       [
         'field' => 'id_siswa',
         'label' => 'Siswa',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|callback_unique_nama_siswa'
       ],
       [
         'field' => 'id_walikelas',

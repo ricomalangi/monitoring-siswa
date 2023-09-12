@@ -79,6 +79,7 @@ class Kelas extends MY_Controller {
       $data['addon_js'] = base_url('assets/vendor/select2/js/select2.full.min.js');
       $data['siswa'] = $this->siswa->select('id_siswa,nama_siswa')->get();
       $data['nama_kelas'] = $this->kelas->select('id_kelas,nama_kelas')->get();
+      $data['nama_walikelas'] = $this->walikelas->select('id_walikelas,nama_walikelas')->get();
       $this->kelas->table = 'tb_kelas_siswa';
       $this->view($data);
       return;
@@ -89,6 +90,39 @@ class Kelas extends MY_Controller {
       $this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan');
     }
     redirect(base_url('kelas'));
+  }
+
+  public function delete($id)
+  {
+    if (!$_POST) {
+      redirect(base_url('kelas'));
+    }
+    $content = $this->kelas->where('id_kelas_siswa', $id)->first();
+    if (!$content) {
+      $this->session->set_flashdata('warning', 'Maaf! Data tidak ditemukan.');
+      redirect(base_url('kelas'));
+    }
+    if ($this->kelas->where('id_kelas_siswa', $id)->delete()) {
+      $this->session->set_flashdata('success', 'Data sudah berhasil dihapus');
+    } else {
+      $this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan');
+    }
+    redirect(base_url('kelas'));
+  }
+  public function unique_nama_siswa()
+  {
+    $siswa = $this->input->post('id_siswa');
+    $id = $this->input->post('id_kelas_siswa');
+    $kelas = $this->kelas->where('id_siswa', $siswa)->first();
+    if ($kelas) {
+      if ($id == $kelas->id_kelas_siswa) {
+        return true;
+      }
+      $this->load->library('form_validation');
+      $this->form_validation->set_message('unique_nama_siswa', '%s sudah terdaftar kelas');
+      return false;
+    }
+    return true;
   }
 }
 

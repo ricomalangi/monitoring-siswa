@@ -5,7 +5,7 @@
         <div class="card-body">
           <h5 class="card-title">Form</h5>
           <form action="<?= $form_action ?>" class="row g-3" method="POST">
-            <?= isset($input->id_petugas_piket) ? form_hidden('id_petugas_piket', $input->id_petugas_piket) : '' ?>
+            <?= isset($input->id_kelas_siswa) ? form_hidden('id_kelas_siswa', $input->id_kelas_siswa) : '' ?>
             <div class="col-md-12">
               <label class="form-label">Nama Siswa</label>
               <select name="id_siswa" class="form-select select2 <?= form_error('id_siswa') !== '' ? 'is-invalid' : '' ?>" style="width: 100%;" required>

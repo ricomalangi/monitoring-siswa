@@ -62,7 +62,8 @@ class Dashboard extends MY_Controller {
       return $this->view($data);
     } else if($this->role === 'siswa'){
       $data['page'] = 'pages/dashboard/index_siswa';
-      $data['kelas'] = $this->kelas->join('tb_kelas', 'id_kelas')->where('tb_kelas_siswa.id_siswa', $this->session->userdata('id_siswa'))->select('nama_kelas')->get();
+      $data['kelas'] = $this->kelas->join('tb_kelas', 'id_kelas')->where('tb_kelas_siswa.id_siswa', $this->session->userdata('id_siswa'))->select('nama_kelas')->get()[0]->nama_kelas ?? '<b>kelas belum ada</b>';
+      $data['walikelas'] = $this->kelas->join('tb_walikelas', 'id_walikelas')->where('tb_kelas_siswa.id_siswa', $this->session->userdata('id_siswa'))->select('nama_walikelas')->get()[0]->nama_walikelas ?? '<b>walikelas belum ada</b>';
       $data['nama_siswa'] = $this->session->userdata('nama_siswa');
       $data['nisn'] = $this->session->userdata('nisn');
       $data['nipd'] = $this->session->userdata('nipd');
@@ -73,8 +74,7 @@ class Dashboard extends MY_Controller {
       $data['tanggal_lahir'] = $this->session->userdata('tanggal_lahir');
       $data['total_prestasi_siswa'] = $this->prestasi->where('id_siswa', $this->session->userdata('id_siswa'))->count();
       $data['total_pelanggaran'] = $this->prestasi->where('id_siswa', $this->session->userdata('id_siswa'))->count();
-      // echo("<pre>");print_r($data['kelas']);echo("</pre>");
-      // die();
+      //echo('<pre>');print_r($data['walikelas']);echo('</pre>');die();
       return $this->view($data);
     } else {
       $data['page'] = 'layouts/_forbidden';
