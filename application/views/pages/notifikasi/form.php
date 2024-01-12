@@ -31,16 +31,39 @@
               <textarea name="keterangan" rows="4" class="form-control <?= form_error('keterangan') !== '' ? 'is-invalid' : '' ?>" required><?= $input->keterangan ?></textarea>
               <?= form_error('keterangan') ?>
             </div>
-            <label class="form-label">File Surat</label>
-              <input type="file" name="surat" class="form-control" accept="application/pdf" required>
-              <small class="text-muted">File harus <b>PDF</b></small>
-              <?php if ($this->session->flashdata('surat_error')) : ?>
-                <small class="form-text text-danger"><?= $this->session->flashdata('surat_error') ?></small>
-              <?php endif ?>
+            <div class="col-md-12">
+                <label class="form-label">File Surat</label>
+                <input type="file" name="surat" class="form-control" accept="application/pdf" required>
+                <small class="text-muted">File harus <b>PDF</b></small>
+                <?php if ($this->session->flashdata('surat_error')) : ?>
+                  <small class="form-text text-danger"><?= $this->session->flashdata('surat_error') ?></small>
+                <?php endif ?>
+            </div>
+            <?php if (isset($input->surat)) : ?>
+              <div class="col-md-4">
+                <?php if ($input->surat !== '') : ?>
+                  <label class="form-label">File surat</label>
+                  <a href="<?= base_url("/surat/$input->surat") ?>" class="btn btn-secondary btn-md btn-show-surat form-control">Lihat surat</a>
+                <?php endif ?>
+              </div>
+            <?php endif ?>
             <div class="col-md-12">
               <button type="submit" class="btn btn-success btn-md"><i class="fas fa-fw fa-save"></i> Simpan</button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal -->
+  <div class="modal fade" id="surat-attachment">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="container-fluid" id="frame-preview"></div>
+          <div class="mt-3">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
@@ -51,6 +74,13 @@
     $('.select2').select2({
       placeholder: "--pilih data--",
       allowClear: true
+    })
+
+    let sertifikatAttachment = $('#surat-attachment')
+    $('.btn-show-surat').on('click', function(e) {
+      e.preventDefault()
+      sertifikatAttachment.modal('show')
+      sertifikatAttachment.find('#frame-preview').html('<iframe class="w-100" style="height:100vh;" src="' + $(this).attr('href') + '"></iframe>')
     })
   })
 </script>

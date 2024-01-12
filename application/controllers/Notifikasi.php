@@ -85,28 +85,6 @@ class Notifikasi extends MY_Controller {
       $data['page'] = 'layouts/_forbidden';
       return $this->view($data);
     }
-    $addRules = [
-      [
-        'field' => 'kategori_notifikasi',
-        'label' => 'Kategori notifikasi',
-        'rules' => 'trim|required'
-      ],
-      [
-        'field' => 'poin_notifikasi',
-        'label' => 'Poin notifikasi',
-        'rules' => 'trim|required'
-      ],
-      [
-        'field' => 'status',
-        'label' => 'Status',
-        'rules' => 'trim|required'
-      ],
-      [
-        'field' => 'keterangan',
-        'label' => 'Keterangan',
-        'rules' => 'trim|required'
-      ],
-    ];
     $data['content'] = $this->notifikasi->where('id_notifikasi', $id)->first();
     if (!$data['content']) {
       $this->session->set_flashdata('warning', 'Maaf! Data tidak ditemukan!');
@@ -116,10 +94,22 @@ class Notifikasi extends MY_Controller {
       $data['input'] = $data['content'];
     } else {
       $data['input'] = (object) $this->input->post(null, true);
-      $data['input']->date_updated = date('Y-m-d H:i:s');
     }
 
-    if (!$this->notifikasi->validate(null, $addRules)) {
+    if (!empty($_FILES) && $_FILES['surat']['name'] !== '') {
+      $namaSurat = url_title($data['input']->id_siswa, '-', true) . '-' . date('YmdHis');
+      $upload = $this->notifikasi->uploadsurat('surat', $namaSurat);
+      if ($upload) {
+        if ($data['content']->surat !== '') {
+          $this->notifikasi->deleteSurat($data['content']->surat);
+        }
+        $data['input']->surat = $upload['file_name'];
+      } else {
+        redirect(base_url("notifikasi/edit/$id"));
+      }
+    }
+
+    if (!$this->notifikasi->validate()) {
       $data['title'] = 'Edit Data';
       $data['form_action'] = base_url("notifikasi/edit/$id");
       $data['page'] = 'pages/notifikasi/form';
@@ -127,12 +117,35 @@ class Notifikasi extends MY_Controller {
       $data['addon_js'] = base_url('assets/vendor/select2/js/select2.full.min.js');
       $data['siswa'] = $this->siswa->select('id_siswa,nama_siswa')->get();
       $data['walikelas'] = $this->walikelas->select('id_walikelas,nama_walikelas')->get();
-      $data['nama_notifikasi'] = $this->namanotifikasi->select('id_nama_notifikasi,nama_notifikasi')->get();
       $this->view($data);
       return;
     }
     if ($this->notifikasi->where('id_notifikasi', $id)->update($data['input'])) {
       $this->session->set_flashdata('success', 'Data berhasil diperbaharui');
+    } else {
+      $this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan');
+    }
+    redirect(base_url('notifikasi'));
+  }
+
+  public function delete($id)
+  {
+    if($this->role !== 'gurubk'){
+      $data['page'] = 'layouts/_forbidden';
+      return $this->view($data);
+    }
+    if (!$_POST) {
+      redirect(base_url('notifikasi'));
+    }
+    $content = $this->notifikasi->where('id_notifikasi', $id)->first();
+    if (!$content) {
+      $this->session->set_flashdata('warning', 'Maaf! Data tidak ditemukan.');
+      redirect(base_url('notifikasi'));
+    }
+
+    if ($this->notifikasi->where('id_notifikasi', $id)->delete()) {
+      $this->notifikasi->deleteSurat($content->surat);
+      $this->session->set_flashdata('success', 'Data sudah berhasil dihapus');
     } else {
       $this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan');
     }

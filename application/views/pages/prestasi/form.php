@@ -42,7 +42,7 @@
             <?php if (isset($input->sertifikat)) : ?>
               <div class="col-md-6">
                 <?php if ($input->sertifikat !== '') : ?>
-                  <label>File Sertifikat</label>
+                  <label class="form-label">File Sertifikat</label>
                   <a href="<?= base_url("/sertifikat/$input->sertifikat") ?>" class="btn btn-secondary btn-sm btn-show-sertifikat form-control">Lihat sertifikat</a>
                 <?php endif ?>
               </div>
